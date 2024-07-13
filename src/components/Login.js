@@ -56,7 +56,7 @@ const Login = ({ setAuth }) => {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="password">Contraseña</Label>
+                  <Label for="password">Contraseñ</Label>
                   <InputGroup>
                     <Input
                       type={showPassword ? "text" : "password"}
