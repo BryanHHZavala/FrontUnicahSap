@@ -1,0 +1,18 @@
+.about-container {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid;
+    border-radius: 4px;
+    background-color: brown;
+}
+
+.about-title {
+    font-size: 32px;
+    color: black;
+}
+
+.about-content{
+    font-size: 18px;
+    line-height: 2.0;
+    color: blue;
+}
