@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import './../styles/about.css';
+import '../assets/styles/about.css';
 import { Form, FormGroup, Label, Input, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Button } from "reactstrap";
 
-const about = () => {
+const About = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false); //!combobox este abierto o cerrado
     const [selectedOption, setSelectedOption] = useState('Seleccione un periodo: ') //! capturar el periodo
     const [textField1, setTextField1] = useState(''); //!capturar solo el anioo
@@ -59,7 +59,7 @@ const about = () => {
                 </FormGroup>
                 <FormGroup>
                     <Label for="combobox">Seleccione un periodo</Label>
-                    <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}> //! el toggle verifica si esta abierto o cerrado
+                    <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}> 
                         <DropdownToggle caret>{selectedOption}</DropdownToggle>
                         <DropdownMenu>
                             <DropdownItem onClick={handleSelect}>Periodo I</DropdownItem>
@@ -73,3 +73,5 @@ const about = () => {
         </div>
     )
 }
+
+export default About;

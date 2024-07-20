@@ -1,36 +1,30 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  CardBody,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Button,
-  InputGroup,
-  InputGroupText,
-  Alert,
-} from "reactstrap";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col, Card, CardBody, Form, FormGroup, Label, Input, Button, InputGroup, InputGroupText } from 'reactstrap';
 
 const Login = ({ setAuth }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate;
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
+  const [rememberMe, setRememberMe] = useState(false); // Estado para recordar los datos del login
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (username === "admin" && password === "p@ssword") {
+    // Simulación de autenticación
+    if (username === 'admin' && password === 'p@ssword') {
       setAuth(true);
-      localStorage.setItem("auth", "true");
-      navigate("/");
+      localStorage.setItem('auth', 'true');
+      if (rememberMe) {
+        localStorage.setItem('username', username); // Guardar nombre de usuario si se selecciona recordar
+        localStorage.setItem('password', password); // Guardar contraseña si se selecciona recordar
+      } else {
+        localStorage.removeItem('username');
+        localStorage.removeItem('password');
+      }
+      navigate('/');
     } else {
-      alert("Credenciales incorrectas");
+      alert('Credenciales incorrectas');
     }
   };
 
@@ -38,8 +32,12 @@ const Login = ({ setAuth }) => {
     setShowPassword(!showPassword);
   };
 
+  const handleRememberMe = () => {
+    setRememberMe(!rememberMe);
+  };
+
   return (
-    <Container className="d-flex justify-content-center  align-items-center vh-100">
+    <Container className="d-flex justify-content-center align-items-center vh-100">
       <Row className="justify-content-center">
         <Col md="12">
           <Card>
@@ -59,24 +57,24 @@ const Login = ({ setAuth }) => {
                   <Label for="password">Contraseña</Label>
                   <InputGroup>
                     <Input
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? 'text' : 'password'}
                       id="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
-                    <InputGroupText
-                      onClick={toggleShowPassword}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {showPassword ? "Ocultar" : "Mostrar"}
+                    <InputGroupText onClick={toggleShowPassword} style={{ cursor: 'pointer' }}>
+                      {showPassword ? 'Ocultar' : 'Mostrar'}
                     </InputGroupText>
                   </InputGroup>
                 </FormGroup>
-                <FormGroup>
-                  <Button type="submit" color="primary" block>
-                    Iniciar sesión
-                  </Button>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="checkbox" onChange={handleRememberMe} /> Recuérdame
+                  </Label>
                 </FormGroup>
+                <Button type="submit" color="primary" block>
+                  Iniciar sesión
+                </Button>
               </Form>
             </CardBody>
           </Card>
@@ -86,4 +84,4 @@ const Login = ({ setAuth }) => {
   );
 };
 
-export default Logion;
+export default Login;

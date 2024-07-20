@@ -1,22 +1,30 @@
-import './styles/App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from "./components/Home.js";
-import About from './components/About.js';
-import Navigation from './components/Navbar.js';
-import React from "react";
+import './assets/styles/App.css';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Navbar from './components/Navbar';
+import Login from './pages/Login';
+import React, { useState } from 'react';
+
+const PrivateRoute = ({ element, auth }) => {
+  return auth ? element : <Navigate to="/login" />;
+};
 
 function App() {
+  const [auth, setAuth] = useState(false);
+
   return (
-    <Router>
+    <BrowserRouter>
       <div>
-        <Navigation />
         <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login setAuth={setAuth} />} />
+          <Route path="/" element={<PrivateRoute element={<Home />} auth={auth} />} />
+          <Route path="/about" element={<PrivateRoute element={<About />} auth={auth} />} />
         </Routes>
+        {auth && <Navbar />}
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
-export default App;
 
+export default App;
